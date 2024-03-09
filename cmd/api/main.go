@@ -15,8 +15,6 @@ import (
 
 const version = "1.0.0"
 
-// Add a db struct field to hold the configuration settings for our database connection
-// pool. For now this only holds the DSN, which we will read in from a command-line flag.
 type config struct {
 	port int
 	env  string
@@ -43,8 +41,6 @@ func main() {
 	}
 	defer db.Close()
 	logger.Printf("database connection pool established")
-	// Use the data.NewModels() function to initialize a Models struct, passing in the
-	// connection pool as a parameter.
 	app := &application{
 		config: cfg,
 		logger: logger,

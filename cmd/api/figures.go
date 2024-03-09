@@ -140,14 +140,11 @@ func (app *application) updateFigureHandler(w http.ResponseWriter, r *http.Reque
 }
 
 func (app *application) deleteFigureHandler(w http.ResponseWriter, r *http.Request) {
-	// Extract the movie ID from the URL.
 	id, err := app.readIDParam(r)
 	if err != nil {
 		app.notFoundResponse(w, r)
 		return
 	}
-	// Delete the movie from the database, sending a 404 Not Found response to the
-	// client if there isn't a matching record.
 	err = app.models.Figures.Delete(id)
 	if err != nil {
 		switch {
@@ -158,7 +155,6 @@ func (app *application) deleteFigureHandler(w http.ResponseWriter, r *http.Reque
 		}
 		return
 	}
-	// Return a 200 OK status code along with a success message.
 	err = app.writeJSON(w, http.StatusOK, envelope{"message": "figure successfully deleted"}, nil)
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
